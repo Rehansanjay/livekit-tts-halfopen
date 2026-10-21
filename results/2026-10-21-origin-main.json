@@ -78,8 +78,9 @@
     },
     {
       "plugin": "resemble",
-      "result": "unmeasured",
-      "detail": "no endpoint override in the public constructor"
+      "result": "never_noticed",
+      "seconds": 75.0,
+      "detail": "url is a module constant the probe patches"
     },
     {
       "plugin": "respeecher",
@@ -106,8 +107,9 @@
     },
     {
       "plugin": "soniox",
-      "result": "unmeasured",
-      "detail": "no endpoint override in the public constructor"
+      "result": "never_noticed",
+      "seconds": 75.0,
+      "detail": "constructor takes the url as websocket_url"
     },
     {
       "plugin": "telnyx",
@@ -116,8 +118,19 @@
     },
     {
       "plugin": "xai",
-      "result": "unmeasured",
-      "detail": "no endpoint override in the public constructor"
+      "result": "never_noticed",
+      "seconds": 75.0,
+      "detail": "url is a module constant the probe patches"
     }
-  ]
+  ],
+  "fixed_in": "https://github.com/livekit/agents/pull/8035",
+  "after_fix": {
+    "baseten": 12.9,
+    "murf": 10.1,
+    "neuphonic": 10.1,
+    "telnyx": 10.0,
+    "resemble": 10.1,
+    "soniox": 10.0,
+    "xai": 11.2
+  }
 }

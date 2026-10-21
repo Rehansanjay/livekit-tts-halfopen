@@ -110,6 +110,23 @@ def build(name: str, http: aiohttp.ClientSession):
         from livekit.plugins import neuphonic
 
         return neuphonic.TTS(api_key="x", base_url=HTTP, http_session=http)
+    if name == "soniox":
+        from livekit.plugins import soniox
+
+        # the constructor takes the url directly, under `websocket_url`
+        return soniox.TTS(api_key="x", websocket_url=f"{WS}/ws", http_session=http)
+    if name == "resemble":
+        from livekit.plugins.resemble import tts as resemble_tts
+
+        # no endpoint override in the constructor; the url is a module constant
+        resemble_tts.RESEMBLE_WEBSOCKET_URL = f"{WS}/ws"
+        return resemble_tts.TTS(api_key="x", http_session=http)
+    if name == "xai":
+        from livekit.plugins.xai import tts as xai_tts
+
+        # no endpoint override in the constructor; the url is a module constant
+        xai_tts.XAI_WEBSOCKET_URL = f"{WS}/ws"
+        return xai_tts.TTS(api_key="x", http_session=http)
     if name == "respeecher":
         # `_connect_ws` rejects any url that is not wss:// and raises before
         # connecting, so it cannot be pointed at a local plaintext server. It
@@ -169,14 +186,16 @@ ALL = [
     "minimax",
     "murf",
     "neuphonic",
-    "respeecher",
+    "resemble",
     "sarvam",
     "slng",
     "smallestai",
+    "soniox",
     "telnyx",
+    "xai",
 ]
-# resemble, soniox and xai expose no endpoint override in the public constructor.
-NO_OVERRIDE = ["resemble", "soniox", "xai"]
+# respeecher raises for any url that is not wss:// before it opens a socket.
+NO_OVERRIDE = ["respeecher"]
 
 
 async def probe(name: str, http: aiohttp.ClientSession) -> dict:

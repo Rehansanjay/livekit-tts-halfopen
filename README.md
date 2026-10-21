@@ -39,9 +39,24 @@ Measured against `livekit/agents` at **`3c6e65124`**, 21 October 2026, with `API
 | baseten | `conn_options.timeout` is spent on `sock_connect` only |
 | murf | same |
 | neuphonic | same |
+| resemble | same |
+| xai | same |
 | telnyx | `conn_options.timeout` is spent on the `ws_connect` wait only |
+| soniox | same, and `_Connection.connect()` cannot see the timeout at all |
 
-Nine fail over properly, three eventually, four not at all. Four could not be measured — see below.
+Nine fail over properly, three eventually, seven not at all. One could not be measured — see below.
+
+All seven are fixed in [#8035](https://github.com/livekit/agents/pull/8035), which brings them to 10.0–12.9s:
+
+| plugin | before | after |
+| --- | --- | --- |
+| baseten | never (75s) | 12.9s |
+| murf | never (75s) | 10.1s |
+| neuphonic | never (75s) | 10.1s |
+| telnyx | never (75s) | 10.0s |
+| resemble | never (75s) | 10.1s |
+| soniox | never (75s) | 10.0s |
+| xai | never (75s) | 11.2s |
 
 ### The instrument that matters here is not the one that mattered for STT
 
@@ -88,10 +103,14 @@ Reported rather than guessed:
 
 | plugin | reason |
 | --- | --- |
-| respeecher | `_connect_ws` raises `APIConnectionError` for any url that is not `wss://`, before it opens a socket. It would otherwise register as "raised at 0.0s", which reads like the fastest failover in the table and is only input validation. |
-| resemble | no endpoint override in the public constructor |
-| soniox | no endpoint override in the public constructor |
-| xai | no endpoint override in the public constructor |
+| respeecher | `_connect_ws` raises `APIConnectionError` for any url that is not `wss://`, before it opens a socket. It would otherwise register as "raised at 0.0s", which reads like the fastest failover in the table and is only input validation. Reading the source it does pass a timeout to `ws.receive()`, so it looks bounded — but that is a source read, not a measurement. |
+
+Three plugins were on this list in the first pass and should not have been. I had scanned constructors for `base_url`, `ws_url`, `url` and `endpoint`, and concluded that `resemble`, `soniox` and `xai` could not be redirected. That was the scan's limitation, not the plugins':
+
+- **soniox** takes the url directly, as `websocket_url`. My signature scan looked for a parameter named `url`, which does not match `websocket_url`.
+- **resemble** and **xai** keep theirs in a module constant (`RESEMBLE_WEBSOCKET_URL`, `XAI_WEBSOCKET_URL`) that the probe can assign before constructing.
+
+All three then measured at the full 75-second watch. Reporting something as unmeasurable is cheap and safe, and it hid three of the seven broken plugins for a few hours — worth more scepticism than I gave it.
 
 ## Running it
 
