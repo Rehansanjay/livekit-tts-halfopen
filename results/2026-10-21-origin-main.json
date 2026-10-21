@@ -1,0 +1,123 @@
+{
+  "target": "livekit/agents origin/main 3c6e65124",
+  "checked_at": "2026-10-21",
+  "watch_seconds": 75.0,
+  "conn_options": {
+    "max_retry": 0,
+    "timeout": 10
+  },
+  "plugins": [
+    {
+      "plugin": "asyncai",
+      "result": "raised",
+      "seconds": 10.1,
+      "detail": "APITimeoutError: Request timed out."
+    },
+    {
+      "plugin": "baseten",
+      "result": "never_noticed",
+      "seconds": 75.0
+    },
+    {
+      "plugin": "bland",
+      "result": "raised",
+      "seconds": 10.0,
+      "detail": "APITimeoutError: Request timed out."
+    },
+    {
+      "plugin": "cartesia",
+      "result": "raised",
+      "seconds": 10.0,
+      "detail": "APITimeoutError: Request timed out."
+    },
+    {
+      "plugin": "deepgram",
+      "result": "raised",
+      "seconds": 10.1,
+      "detail": "APITimeoutError: Request timed out."
+    },
+    {
+      "plugin": "elevenlabs",
+      "result": "raised",
+      "seconds": 10.1,
+      "detail": "APIStatusError: message='Could not synthesize', status_code=-1, retryable=True"
+    },
+    {
+      "plugin": "fishaudio",
+      "result": "raised",
+      "seconds": 46.8,
+      "detail": "APIStatusError: message='Fish Audio websocket connection closed unexpectedly', status_code=1006, retryable"
+    },
+    {
+      "plugin": "gradium",
+      "result": "raised",
+      "seconds": 10.0,
+      "detail": "APITimeoutError: Request timed out."
+    },
+    {
+      "plugin": "inworld",
+      "result": "raised",
+      "seconds": 70.0,
+      "detail": "APITimeoutError: Request timed out."
+    },
+    {
+      "plugin": "minimax",
+      "result": "raised",
+      "seconds": 20.0,
+      "detail": "APIConnectionError: WebSocket connection failed: APITimeoutError: task_start timed out (caused by CancelledErr"
+    },
+    {
+      "plugin": "murf",
+      "result": "never_noticed",
+      "seconds": 75.0
+    },
+    {
+      "plugin": "neuphonic",
+      "result": "never_noticed",
+      "seconds": 75.0
+    },
+    {
+      "plugin": "resemble",
+      "result": "unmeasured",
+      "detail": "no endpoint override in the public constructor"
+    },
+    {
+      "plugin": "respeecher",
+      "result": "unmeasured",
+      "detail": "rejects a plaintext ws:// url; wss:// is required by the plugin"
+    },
+    {
+      "plugin": "sarvam",
+      "result": "raised",
+      "seconds": 10.1,
+      "detail": "APITimeoutError: WebSocket receive timeout (caused by CancelledError)"
+    },
+    {
+      "plugin": "slng",
+      "result": "raised",
+      "seconds": 10.0,
+      "detail": "APITimeoutError: Request timed out."
+    },
+    {
+      "plugin": "smallestai",
+      "result": "raised",
+      "seconds": 10.4,
+      "detail": "APITimeoutError: Request timed out."
+    },
+    {
+      "plugin": "soniox",
+      "result": "unmeasured",
+      "detail": "no endpoint override in the public constructor"
+    },
+    {
+      "plugin": "telnyx",
+      "result": "never_noticed",
+      "seconds": 75.0
+    },
+    {
+      "plugin": "xai",
+      "result": "unmeasured",
+      "detail": "no endpoint override in the public constructor"
+    }
+  ]
+}
